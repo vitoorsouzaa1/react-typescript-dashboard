@@ -1,10 +1,14 @@
 import React from 'react'
-import { DashboardPage } from './pages/dashaboard/dashboard.page'
+import { LayoutComponent } from './components/layout/layout.component'
 
-export const App = (): JSX.Element => {
+// Styles
+import GlobalStyles from './styles/GlobalStyles'
+
+export const App: React.FC = () => {
   return (
-    <div className='App'>
-      <DashboardPage />
-    </div>
+    <>
+      <GlobalStyles />
+      <LayoutComponent />
+    </>
   )
 }

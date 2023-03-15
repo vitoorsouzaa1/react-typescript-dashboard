@@ -2,6 +2,9 @@ import React, { useMemo } from 'react'
 
 import emojis from '../../utils/emojis'
 
+// Components
+import { TogglerComponent } from '../toggle/toggler.component'
+
 // Styles
 import {
   HeaderContainer,
@@ -19,11 +22,11 @@ export const HeaderComponent: React.FC = () => {
 
   return (
     <HeaderContainer>
-      <h1>Toggle</h1>
+      <TogglerComponent />
 
       <ProfileContainer>
         <ProfileTitle>Olá, {emoji}</ProfileTitle>
-        <UserName>Vítor</UserName>
+        <UserName>Vítor Souza</UserName>
       </ProfileContainer>
     </HeaderContainer>
   )

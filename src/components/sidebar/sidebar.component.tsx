@@ -16,6 +16,7 @@ import {
   SidebarMenu,
   MenuItemLink,
   LogImg,
+  SidebarImgTitle,
 } from './sidebar.styles'
 
 export const SidebarComponent: React.FC = () => {
@@ -23,6 +24,7 @@ export const SidebarComponent: React.FC = () => {
     <SidebarContainer>
       <SidebarHeader>
         <LogImg src={logoImg} alt='Logo do Dashboard' />
+        <SidebarImgTitle>FinanceBoard</SidebarImgTitle>
       </SidebarHeader>
 
       <SidebarMenu>

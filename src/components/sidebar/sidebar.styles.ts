@@ -24,12 +24,13 @@ export const SidebarImgTitle = styled.h3`
 
 export const SidebarMenu = styled.nav`
   margin-top: 50px;
+  display: flex;
+  flex-direction: column;
 `
 
 export const MenuItemLink = styled.a`
   color: ${(props) => props.theme.colors.info};
   text-decoration: none;
-  flex-direction: column;
   margin: 7px 0;
   transition: opacity 0.3s;
   display: flex;

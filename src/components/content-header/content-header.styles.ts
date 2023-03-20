@@ -18,6 +18,7 @@ export const ContentTitle = styled.div<IContainerTitleProps>`
     &::after {
       content: '';
       display: block;
+      width: 55px;
       border-bottom: 10px solid ${(props) => props.lineColor};
     }
   }

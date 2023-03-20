@@ -4,7 +4,6 @@ import React from 'react'
 import { HistoryListContainer, Tag } from './history-list.styles'
 
 interface IHistoryListComponentProps {
-  cardColor: string
   tagColor: string
   title: string
   subTitle: string
@@ -12,14 +11,13 @@ interface IHistoryListComponentProps {
 }
 
 export const HistoryListComponent: React.FC<IHistoryListComponentProps> = ({
-  cardColor,
   tagColor,
   title,
   subTitle,
   amount,
 }) => {
   return (
-    <HistoryListContainer color={cardColor}>
+    <HistoryListContainer>
       <Tag color={tagColor} />
       <div>
         <span>{title}</span>

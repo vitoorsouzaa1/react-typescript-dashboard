@@ -11,7 +11,7 @@ export default {
     black: '#fff',
     gray: '#bfbfbf',
 
-    sucess: '#03bb85',
+    success: '#03bb85',
     info: '#3b5998',
     warning: '#ff6961',
   },

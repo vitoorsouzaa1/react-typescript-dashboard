@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 // Components
@@ -6,16 +6,35 @@ import { ContentHeaderComponent } from '../../components/content-header/content-
 import { HistoryListComponent } from '../../components/history-list/history-list.component'
 import { SelectIpuntComponent } from '../../components/select-input/select-ipunt.component'
 
+// Repositories
+import expenses from '../../repositories/expenses'
+import gains from '../../repositories/gains'
+
 // Styles
 import { ListContainer, ListContent, ListFilters } from './list.styles'
 
+interface IData {
+  id: string
+  description: string
+  amountFormatted: string
+  frenquency: string
+  formattedDate: string
+  tagColor: string
+}
+
 export const ListPage: React.FC = () => {
+  const [data, setData] = useState<IData[]>([])
+
   const { type } = useParams()
 
   const title = useMemo(() => {
     return type === 'entry-balance'
       ? { title: 'Entradas', lineColor: '#187d5f' }
       : { title: 'Saídas', lineColor: '#cc2a2c' }
+  }, [type])
+
+  const listData = useMemo(() => {
+    return type === 'entry-balance' ? gains : expenses
   }, [type])
 
   const months = [
@@ -47,6 +66,20 @@ export const ListPage: React.FC = () => {
       label: 2021,
     },
   ]
+
+  useEffect(() => {
+    const res = listData.map((i) => ({
+      id: String(Math.random() * data.length),
+      description: i.description,
+      amountFormatted: i.amount,
+      frenquency: i.frequency,
+      formattedDate: i.date,
+      tagColor: i.frequency === 'recorrente' ? '#4e41f0' : '#f44c4e',
+    }))
+
+    setData(res)
+  }, [])
+
   return (
     <ListContainer>
       <ContentHeaderComponent title={title.title} lineColor={title.lineColor}>
@@ -64,12 +97,15 @@ export const ListPage: React.FC = () => {
       </ListFilters>
 
       <ListContent>
-        <HistoryListComponent
-          tagColor='#e44c4e'
-          title='Compras do Mês'
-          subTitle='01/03/2023'
-          amount='R$ 990,02'
-        />
+        {data.map((item) => (
+          <HistoryListComponent
+            key={item.id}
+            tagColor={item.tagColor}
+            title={item.description}
+            subTitle={item.formattedDate}
+            amount={item.amountFormatted}
+          />
+        ))}
       </ListContent>
     </ListContainer>
   )

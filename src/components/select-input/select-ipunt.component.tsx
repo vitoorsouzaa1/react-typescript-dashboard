@@ -17,7 +17,9 @@ export const SelectIpuntComponent: React.FC<ISelectIputProps> = ({
     <SelectContainer>
       <select>
         {options.map((option) => (
-          <option value={option.value}>{option.label}</option>
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
         ))}
       </select>
     </SelectContainer>

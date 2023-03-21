@@ -6,21 +6,53 @@ import { HistoryListComponent } from '../../components/history-list/history-list
 import { SelectIpuntComponent } from '../../components/select-input/select-ipunt.component'
 
 // Styles
-import { ListContainer, ListContent } from './list.styles'
+import { ListContainer, ListContent, ListFilters } from './list.styles'
 
 export const ListPage: React.FC = () => {
-  const options = [
+  const months = [
     {
-      value: 'Maria',
-      label: 'Maria',
+      value: 3,
+      label: 'Março',
+    },
+    {
+      value: 2,
+      label: 'Fevereiro',
+    },
+    {
+      value: 1,
+      label: 'Janeiro',
     },
   ]
 
+  const years = [
+    {
+      value: 2023,
+      label: 2023,
+    },
+    {
+      value: 2022,
+      label: 2022,
+    },
+    {
+      value: 2021,
+      label: 2021,
+    },
+  ]
   return (
     <ListContainer>
       <ContentHeaderComponent title='Saídas' lineColor='#e44c4e'>
-        <SelectIpuntComponent options={options} />
+        <SelectIpuntComponent options={months} />
+        <SelectIpuntComponent options={years} />
       </ContentHeaderComponent>
+
+      <ListFilters>
+        <button type='button' className='tag-filter tag-filter-recurrent'>
+          Recorrentes
+        </button>
+        <button type='button' className='tag-filter tag-filter-eventual'>
+          Eventuais
+        </button>
+      </ListFilters>
 
       <ListContent>
         <HistoryListComponent

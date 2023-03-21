@@ -1,6 +1,9 @@
 import React, { useMemo, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
+// Utils
+import { Formatter, DateFormatter } from '../../utils/formatter.utils'
+
 // Components
 import { ContentHeaderComponent } from '../../components/content-header/content-header.component'
 import { HistoryListComponent } from '../../components/history-list/history-list.component'
@@ -71,9 +74,9 @@ export const ListPage: React.FC = () => {
     const res = listData.map((i) => ({
       id: String(Math.random() * data.length),
       description: i.description,
-      amountFormatted: i.amount,
+      amountFormatted: Formatter(Number(i.amount)),
       frenquency: i.frequency,
-      formattedDate: i.date,
+      formattedDate: DateFormatter(i.date),
       tagColor: i.frequency === 'recorrente' ? '#4e41f0' : '#f44c4e',
     }))
 

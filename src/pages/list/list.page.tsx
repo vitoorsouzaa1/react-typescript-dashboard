@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useMemo } from 'react'
+import { useParams } from 'react-router-dom'
 
 // Components
 import { ContentHeaderComponent } from '../../components/content-header/content-header.component'
@@ -9,6 +10,14 @@ import { SelectIpuntComponent } from '../../components/select-input/select-ipunt
 import { ListContainer, ListContent, ListFilters } from './list.styles'
 
 export const ListPage: React.FC = () => {
+  const { type } = useParams()
+
+  const title = useMemo(() => {
+    return type === 'entry-balance'
+      ? { title: 'Entradas', lineColor: '#187d5f' }
+      : { title: 'Saídas', lineColor: '#cc2a2c' }
+  }, [type])
+
   const months = [
     {
       value: 3,
@@ -40,7 +49,7 @@ export const ListPage: React.FC = () => {
   ]
   return (
     <ListContainer>
-      <ContentHeaderComponent title='Saídas' lineColor='#e44c4e'>
+      <ContentHeaderComponent title={title.title} lineColor={title.lineColor}>
         <SelectIpuntComponent options={months} />
         <SelectIpuntComponent options={years} />
       </ContentHeaderComponent>

@@ -28,15 +28,15 @@ export const SidebarComponent: React.FC = () => {
       </SidebarHeader>
 
       <SidebarMenu>
-        <MenuItemLink href='#'>
+        <MenuItemLink href='/dashboard'>
           <MdDashboard />
           Dashboard
         </MenuItemLink>
-        <MenuItemLink href='#'>
+        <MenuItemLink href='/list/entry-balance'>
           <MdArrowUpward />
           Entradas
         </MenuItemLink>
-        <MenuItemLink href='#'>
+        <MenuItemLink href='/list/output-balance'>
           <MdArrowDownward />
           Saidas
         </MenuItemLink>

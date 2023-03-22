@@ -1,8 +1,10 @@
 import React, { useMemo, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import { uuid } from 'uuidv4'
 
 // Utils
 import { Formatter, DateFormatter } from '../../utils/formatter.utils'
+import { Months } from '../../utils/months.utils'
 
 // Components
 import { ContentHeaderComponent } from '../../components/content-header/content-header.component'
@@ -46,35 +48,28 @@ export const ListPage: React.FC = () => {
     return type === 'entry-balance' ? gains : expenses
   }, [type])
 
-  const months = [
-    {
-      value: 3,
-      label: 'Março',
-    },
-    {
-      value: 2,
-      label: 'Fevereiro',
-    },
-    {
-      value: 1,
-      label: 'Janeiro',
-    },
-  ]
+  const years = useMemo(() => {
+    let uniqueYears: number[] = []
 
-  const years = [
-    {
-      value: 2023,
-      label: 2023,
-    },
-    {
-      value: 2022,
-      label: 2022,
-    },
-    {
-      value: 2021,
-      label: 2021,
-    },
-  ]
+    listData.forEach((i) => {
+      const date = new Date(i.date)
+      const year = date.getFullYear()
+
+      if (!uniqueYears.includes(year)) {
+        uniqueYears.push(year)
+      }
+    })
+
+    return uniqueYears.map((year) => {
+      return { value: year, label: year }
+    })
+  }, [listData])
+
+  const months = useMemo(() => {
+    return Months.map((month, idx) => {
+      return { value: idx + 1, label: month }
+    })
+  }, [])
 
   useEffect(() => {
     const filteredData = listData.filter((item) => {
@@ -87,7 +82,7 @@ export const ListPage: React.FC = () => {
 
     const res = filteredData.map((item) => {
       return {
-        id: String(new Date().getTime()) + item.amount,
+        id: uuid(),
         description: item.description,
         amountFormatted: Formatter(Number(item.amount)),
         frenquency: item.frequency,

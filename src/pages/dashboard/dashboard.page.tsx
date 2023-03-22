@@ -18,7 +18,7 @@ export const DashboardPage: React.FC = () => {
   return (
     <DashboardContainer>
       <ContentHeaderComponent title='Dashboard' lineColor='#f7931b'>
-        <SelectIpuntComponent options={options} />
+        <SelectIpuntComponent options={options} onChange={() => {}} />
       </ContentHeaderComponent>
     </DashboardContainer>
   )

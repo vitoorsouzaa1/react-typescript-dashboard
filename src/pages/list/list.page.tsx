@@ -10,8 +10,8 @@ import { HistoryListComponent } from '../../components/history-list/history-list
 import { SelectIpuntComponent } from '../../components/select-input/select-ipunt.component'
 
 // Repositories
-import expenses from '../../repositories/expenses'
-import gains from '../../repositories/gains'
+import { expenses } from '../../repositories/expenses'
+import { gains } from '../../repositories/gains'
 
 // Styles
 import { ListContainer, ListContent, ListFilters } from './list.styles'
@@ -27,6 +27,12 @@ interface IData {
 
 export const ListPage: React.FC = () => {
   const [data, setData] = useState<IData[]>([])
+  const [selectedMonth, setSelectedMonth] = useState<string>(
+    String(new Date().getMonth() + 1)
+  )
+  const [selectedYear, setSelectedYear] = useState<string>(
+    String(new Date().getFullYear())
+  )
 
   const { type } = useParams()
 
@@ -71,23 +77,41 @@ export const ListPage: React.FC = () => {
   ]
 
   useEffect(() => {
-    const res = listData.map((i) => ({
-      id: String(Math.random() * data.length),
-      description: i.description,
-      amountFormatted: Formatter(Number(i.amount)),
-      frenquency: i.frequency,
-      formattedDate: DateFormatter(i.date),
-      tagColor: i.frequency === 'recorrente' ? '#4e41f0' : '#f44c4e',
-    }))
+    const filteredData = listData.filter((item) => {
+      const date = new Date(item.date)
+      const month = String(date.getMonth() + 1)
+      const year = String(date.getFullYear())
+
+      return month === selectedMonth && year === selectedYear
+    })
+
+    const res = filteredData.map((item) => {
+      return {
+        id: String(new Date().getTime()) + item.amount,
+        description: item.description,
+        amountFormatted: Formatter(Number(item.amount)),
+        frenquency: item.frequency,
+        formattedDate: DateFormatter(item.date),
+        tagColor: item.frequency === 'recorrente' ? '#4e41f0' : '#f44c4e',
+      }
+    })
 
     setData(res)
-  }, [])
+  }, [listData, selectedMonth, selectedYear, data.length])
 
   return (
     <ListContainer>
       <ContentHeaderComponent title={title.title} lineColor={title.lineColor}>
-        <SelectIpuntComponent options={months} />
-        <SelectIpuntComponent options={years} />
+        <SelectIpuntComponent
+          options={months}
+          onChange={(e) => setSelectedMonth(e.target.value)}
+          defaultValue={selectedMonth}
+        />
+        <SelectIpuntComponent
+          options={years}
+          onChange={(e) => setSelectedYear(e.target.value)}
+          defaultValue={selectedYear}
+        />
       </ContentHeaderComponent>
 
       <ListFilters>

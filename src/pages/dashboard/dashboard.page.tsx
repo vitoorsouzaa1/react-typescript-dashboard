@@ -8,12 +8,13 @@ import { gains } from '../../repositories/gains'
 // Components
 import { ContentHeaderComponent } from '../../components/content-header/content-header.component'
 import { SelectIpuntComponent } from '../../components/select-input/select-ipunt.component'
+import { DashboardBoxComponent } from '../../components/dashboard-box/dashboard-box.component'
 
 // Utils
 import { Months } from '../../utils/months.utils'
 
 // Styles
-import { DashboardContainer } from './dashboard.styles'
+import { DashboardContainer, DashboardContent } from './dashboard.styles'
 
 export const DashboardPage: React.FC = () => {
   const [selectedMonth, setSelectedMonth] = useState<number>(
@@ -89,6 +90,32 @@ export const DashboardPage: React.FC = () => {
           defaultValue={selectedYear}
         />
       </ContentHeaderComponent>
+
+      <DashboardContent>
+        <DashboardBoxComponent
+          title='Saldo'
+          cardColor='#4e41f0'
+          amount={650.0}
+          footerLaber='Atualizado com base nas entradas e saídas.'
+          icon='dollarSign'
+        />
+
+        <DashboardBoxComponent
+          title='Entradas'
+          cardColor='#f7931b'
+          amount={2150.0}
+          footerLaber='Atualizado com base nas entradas e saídas.'
+          icon='arrowUp'
+        />
+
+        <DashboardBoxComponent
+          title='Saídas'
+          cardColor='#e44c4e'
+          amount={1500.0}
+          footerLaber='Atualizado com base nas entradas e saídas.'
+          icon='arrowDown'
+        />
+      </DashboardContent>
     </DashboardContainer>
   )
 }

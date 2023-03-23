@@ -1,6 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { uuid } from 'uuidv4'
 
 // Utils
 import { Formatter, DateFormatter } from '../../utils/formatter.utils'
@@ -35,6 +34,10 @@ export const ListPage: React.FC = () => {
   const [selectedYear, setSelectedYear] = useState<string>(
     String(new Date().getFullYear())
   )
+  const [selectedFrenquency, setselectedFrenquency] = useState([
+    'recorrent',
+    'eventual',
+  ])
 
   const { type } = useParams()
 
@@ -71,18 +74,35 @@ export const ListPage: React.FC = () => {
     })
   }, [])
 
+  const handleFrequencyClick = (frequency: string) => {
+    const alreadySelected = selectedFrenquency.findIndex(
+      (item) => item === frequency
+    )
+
+    if (alreadySelected >= 0) {
+      const filtered = selectedFrenquency.filter((item) => item !== frequency)
+      setselectedFrenquency(filtered)
+    } else {
+      setselectedFrenquency((prev) => [...prev, frequency])
+    }
+  }
+
   useEffect(() => {
     const filteredData = listData.filter((item) => {
       const date = new Date(item.date)
       const month = String(date.getMonth() + 1)
       const year = String(date.getFullYear())
 
-      return month === selectedMonth && year === selectedYear
+      return (
+        month === selectedMonth &&
+        year === selectedYear &&
+        selectedFrenquency.includes(item.frequency)
+      )
     })
 
     const res = filteredData.map((item) => {
       return {
-        id: uuid(),
+        id: 'ew1' + 1,
         description: item.description,
         amountFormatted: Formatter(Number(item.amount)),
         frenquency: item.frequency,
@@ -92,7 +112,7 @@ export const ListPage: React.FC = () => {
     })
 
     setData(res)
-  }, [listData, selectedMonth, selectedYear, data.length])
+  }, [listData, selectedMonth, selectedYear, data.length, selectedFrenquency])
 
   return (
     <ListContainer>
@@ -110,10 +130,22 @@ export const ListPage: React.FC = () => {
       </ContentHeaderComponent>
 
       <ListFilters>
-        <button type='button' className='tag-filter tag-filter-recurrent'>
+        <button
+          type='button'
+          className={`tag-filter tag-filter-recurrent ${
+            selectedFrenquency.includes('recorrente') && 'tag-activated'
+          }`}
+          onClick={() => handleFrequencyClick('recorrente')}
+        >
           Recorrentes
         </button>
-        <button type='button' className='tag-filter tag-filter-eventual'>
+        <button
+          type='button'
+          className={`tag-filter tag-filter-eventual ${
+            selectedFrenquency.includes('eventual') && 'tag-activated'
+          }`}
+          onClick={() => handleFrequencyClick('eventual')}
+        >
           Eventuais
         </button>
       </ListFilters>

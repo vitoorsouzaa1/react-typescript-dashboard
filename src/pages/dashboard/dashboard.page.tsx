@@ -1,13 +1,29 @@
-import React from 'react'
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useState, useMemo } from 'react'
+
+// Repositories
+import { expenses } from '../../repositories/expenses'
+import { gains } from '../../repositories/gains'
 
 // Components
 import { ContentHeaderComponent } from '../../components/content-header/content-header.component'
 import { SelectIpuntComponent } from '../../components/select-input/select-ipunt.component'
 
+// Utils
+import { Months } from '../../utils/months.utils'
+
 // Styles
 import { DashboardContainer } from './dashboard.styles'
 
 export const DashboardPage: React.FC = () => {
+  const [selectedMonth, setSelectedMonth] = useState<number>(
+    new Date().getMonth() + 1
+  )
+
+  const [selectedYear, setSelectedYear] = useState<number>(
+    new Date().getFullYear()
+  )
+
   const options = [
     {
       value: 'Logan',
@@ -15,10 +31,63 @@ export const DashboardPage: React.FC = () => {
     },
   ]
 
+  const years = useMemo(() => {
+    let uniqueYears: number[] = []
+
+    const headerData = [...expenses, ...gains].forEach((item) => {
+      const date = new Date(item.date)
+      const year = date.getFullYear()
+
+      if (!uniqueYears.includes(year)) {
+        uniqueYears.push(year)
+      }
+    })
+
+    return uniqueYears.map((year) => {
+      return { value: year, label: year }
+    })
+  }, [])
+
+  const months = useMemo(() => {
+    return Months.map((month, idx) => {
+      return {
+        value: idx + 1,
+        label: month,
+      }
+    })
+  }, [])
+
+  const handleSelectedMonth = (month: string) => {
+    try {
+      const parseMonth = Number(month)
+      setSelectedMonth(parseMonth)
+    } catch (err) {
+      throw new Error('Invlid month value.')
+    }
+  }
+
+  const handleSelectedYear = (year: string) => {
+    try {
+      const parseYear = Number(year)
+      setSelectedYear(parseYear)
+    } catch (err) {
+      throw new Error('Invlid year value.')
+    }
+  }
+
   return (
     <DashboardContainer>
       <ContentHeaderComponent title='Dashboard' lineColor='#f7931b'>
-        <SelectIpuntComponent options={options} onChange={() => {}} />
+        <SelectIpuntComponent
+          options={months}
+          onChange={(e) => handleSelectedMonth(e.target.value)}
+          defaultValue={selectedMonth}
+        />
+        <SelectIpuntComponent
+          options={years}
+          onChange={(e) => handleSelectedYear(e.target.value)}
+          defaultValue={selectedYear}
+        />
       </ContentHeaderComponent>
     </DashboardContainer>
   )

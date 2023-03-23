@@ -29,12 +29,12 @@ interface IData {
 export const ListPage: React.FC = () => {
   const [data, setData] = useState<IData[]>([])
 
-  const [selectedMonth, setSelectedMonth] = useState<string>(
-    String(new Date().getMonth() + 1)
+  const [selectedMonth, setSelectedMonth] = useState<number>(
+    new Date().getMonth() + 1
   )
 
-  const [selectedYear, setSelectedYear] = useState<string>(
-    String(new Date().getFullYear())
+  const [selectedYear, setSelectedYear] = useState<number>(
+    new Date().getFullYear()
   )
 
   const [selectedFrenquency, setselectedFrenquency] = useState([
@@ -90,11 +90,29 @@ export const ListPage: React.FC = () => {
     }
   }
 
+  const handleSelectedMonth = (month: string) => {
+    try {
+      const parseMonth = Number(month)
+      setSelectedMonth(parseMonth)
+    } catch (err) {
+      throw new Error('Invlid month value.')
+    }
+  }
+
+  const handleSelectedYear = (year: string) => {
+    try {
+      const parseYear = Number(year)
+      setSelectedYear(parseYear)
+    } catch (err) {
+      throw new Error('Invlid year value.')
+    }
+  }
+
   useEffect(() => {
     const filteredData = listData.filter((item) => {
       const date = new Date(item.date)
-      const month = String(date.getMonth() + 1)
-      const year = String(date.getFullYear())
+      const month = date.getMonth() + 1
+      const year = date.getFullYear()
 
       return (
         month === selectedMonth &&
@@ -122,12 +140,12 @@ export const ListPage: React.FC = () => {
       <ContentHeaderComponent title={title.title} lineColor={title.lineColor}>
         <SelectIpuntComponent
           options={months}
-          onChange={(e) => setSelectedMonth(e.target.value)}
+          onChange={(e) => handleSelectedMonth(e.target.value)}
           defaultValue={selectedMonth}
         />
         <SelectIpuntComponent
           options={years}
-          onChange={(e) => setSelectedYear(e.target.value)}
+          onChange={(e) => handleSelectedYear(e.target.value)}
           defaultValue={selectedYear}
         />
       </ContentHeaderComponent>

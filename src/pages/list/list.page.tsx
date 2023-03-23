@@ -28,12 +28,15 @@ interface IData {
 
 export const ListPage: React.FC = () => {
   const [data, setData] = useState<IData[]>([])
+
   const [selectedMonth, setSelectedMonth] = useState<string>(
     String(new Date().getMonth() + 1)
   )
+
   const [selectedYear, setSelectedYear] = useState<string>(
     String(new Date().getFullYear())
   )
+
   const [selectedFrenquency, setselectedFrenquency] = useState([
     'recorrent',
     'eventual',
@@ -102,7 +105,7 @@ export const ListPage: React.FC = () => {
 
     const res = filteredData.map((item) => {
       return {
-        id: 'ew1' + 1,
+        id: String(Number(new Date()) * Math.random()),
         description: item.description,
         formattedAmount: Formatter(Number(item.amount)),
         frenquency: item.frequency,

@@ -20,7 +20,7 @@ import { ListContainer, ListContent, ListFilters } from './list.styles'
 interface IData {
   id: string
   description: string
-  amountFormatted: string
+  formattedAmount: string
   frenquency: string
   formattedDate: string
   tagColor: string
@@ -104,7 +104,7 @@ export const ListPage: React.FC = () => {
       return {
         id: 'ew1' + 1,
         description: item.description,
-        amountFormatted: Formatter(Number(item.amount)),
+        formattedAmount: Formatter(Number(item.amount)),
         frenquency: item.frequency,
         formattedDate: DateFormatter(item.date),
         tagColor: item.frequency === 'recorrente' ? '#4e41f0' : '#f44c4e',
@@ -157,7 +157,7 @@ export const ListPage: React.FC = () => {
             tagColor={item.tagColor}
             title={item.description}
             subTitle={item.formattedDate}
-            amount={item.amountFormatted}
+            amount={item.formattedAmount}
           />
         ))}
       </ListContent>

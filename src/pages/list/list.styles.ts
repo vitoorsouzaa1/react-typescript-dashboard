@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const ListContainer = styled.div``
 
-export const ListContent = styled.div``
+export const ListContent = styled.main``
 
 export const ListFilters = styled.div`
   width: 100%;

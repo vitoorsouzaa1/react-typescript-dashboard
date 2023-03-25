@@ -17,13 +17,9 @@ interface IDashboardBoxComponentProps {
   icon: 'dollarSign' | 'arrowUp' | 'arrowDown'
 }
 
-export const DashboardBoxComponent: React.FC<IDashboardBoxComponentProps> = ({
-  title,
-  amount,
-  footerLaber,
-  cardColor,
-  icon,
-}) => {
+export const DashboardWalletBoxComponent: React.FC<
+  IDashboardBoxComponentProps
+> = ({ title, amount, footerLaber, cardColor, icon }) => {
   const selectedIcon = useMemo(() => {
     if (icon === 'dollarSign') return DollarSign
     if (icon === 'arrowUp') return ArrowUp

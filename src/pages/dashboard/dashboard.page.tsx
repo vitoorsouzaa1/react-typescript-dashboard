@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useMemo } from 'react'
 
 // Repositories
@@ -8,7 +7,7 @@ import { gains } from '../../repositories/gains'
 // Components
 import { ContentHeaderComponent } from '../../components/content-header/content-header.component'
 import { SelectIpuntComponent } from '../../components/select-input/select-ipunt.component'
-import { DashboardBoxComponent } from '../../components/dashboard-box/dashboard-box.component'
+import { DashboardWalletBoxComponent } from '../../components/dashboard-wallet-box/dashboard-wallet-box.component'
 
 // Utils
 import { Months } from '../../utils/months.utils'
@@ -92,7 +91,7 @@ export const DashboardPage: React.FC = () => {
       </ContentHeaderComponent>
 
       <DashboardContent>
-        <DashboardBoxComponent
+        <DashboardWalletBoxComponent
           title='Saldo'
           cardColor='#4e41f0'
           amount={650.0}
@@ -100,7 +99,7 @@ export const DashboardPage: React.FC = () => {
           icon='dollarSign'
         />
 
-        <DashboardBoxComponent
+        <DashboardWalletBoxComponent
           title='Entradas'
           cardColor='#f7931b'
           amount={2150.0}
@@ -108,7 +107,7 @@ export const DashboardPage: React.FC = () => {
           icon='arrowUp'
         />
 
-        <DashboardBoxComponent
+        <DashboardWalletBoxComponent
           title='Saídas'
           cardColor='#e44c4e'
           amount={1500.0}

@@ -9,6 +9,7 @@ import { ContentHeaderComponent } from '../../components/content-header/content-
 import { SelectIpuntComponent } from '../../components/select-input/select-ipunt.component'
 import { DashboardWalletBoxComponent } from '../../components/dashboard-wallet-box/dashboard-wallet-box.component'
 import { DashboardMessageBoxComponent } from '../../components/dashboard-message-box/dashboard-message-box.component'
+import { PieChartComponent } from '../../components/piechart/piechart.component'
 
 // Utils
 import { Months } from '../../utils/months.utils'
@@ -104,6 +105,31 @@ export const DashboardPage: React.FC = () => {
     return totalGains - totalExpenses
   }, [totalExpenses, totalGains])
 
+  const relation = useMemo(() => {
+    const total = totalGains + totalExpenses
+
+    const percentOfGains = (totalGains / total) * 100
+
+    const percentOfExpenses = (totalExpenses / total) * 100
+
+    const relationData = [
+      {
+        name: 'Entradas',
+        value: totalGains,
+        percent: Number(percentOfGains.toFixed(1)),
+        color: '#e44c4e',
+      },
+      {
+        name: 'Saídas',
+        value: totalExpenses,
+        percent: Number(percentOfExpenses.toFixed(1)),
+        color: '#f7931b',
+      },
+    ]
+
+    return relationData
+  }, [totalExpenses, totalGains])
+
   const walletMessage = useMemo(() => {
     if (totalBalance < 0) {
       return {
@@ -194,6 +220,8 @@ export const DashboardPage: React.FC = () => {
           footerText={walletMessage.footerText}
           icon={walletMessage.icon}
         />
+
+        <PieChartComponent data={relation} />
       </DashboardContent>
     </DashboardContainer>
   )

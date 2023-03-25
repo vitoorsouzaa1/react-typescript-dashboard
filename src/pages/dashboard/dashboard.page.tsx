@@ -15,6 +15,8 @@ import { Months } from '../../utils/months.utils'
 
 // Image
 import happyImg from '../../assets/happy.svg'
+import sadImg from '../../assets/sad.svg'
+import grinningImg from '../../assets/grinning.svg'
 
 // Styles
 import { DashboardContainer, DashboardContent } from './dashboard.styles'
@@ -27,13 +29,6 @@ export const DashboardPage: React.FC = () => {
   const [selectedYear, setSelectedYear] = useState<number>(
     new Date().getFullYear()
   )
-
-  const options = [
-    {
-      value: 'Logan',
-      label: 'Logan',
-    },
-  ]
 
   const years = useMemo(() => {
     let uniqueYears: number[] = []
@@ -60,6 +55,81 @@ export const DashboardPage: React.FC = () => {
       }
     })
   }, [])
+
+  const totalGains = useMemo(() => {
+    let total: number = 0
+
+    gains.forEach((e) => {
+      const date = new Date(e.date)
+
+      const year = date.getFullYear()
+
+      const month = date.getMonth() + 1
+
+      if (month === selectedMonth && year === selectedYear) {
+        try {
+          total += Number(e.amount)
+        } catch {
+          throw new Error('Invalid amount! Amount must be a number.')
+        }
+      }
+    })
+
+    return total
+  }, [selectedMonth, selectedYear])
+
+  const totalExpenses = useMemo(() => {
+    let total: number = 0
+
+    expenses.forEach((e) => {
+      const date = new Date(e.date)
+
+      const year = date.getFullYear()
+
+      const month = date.getMonth() + 1
+
+      if (month === selectedMonth && year === selectedYear) {
+        try {
+          total += Number(e.amount)
+        } catch {
+          throw new Error('Invalid amount! Amount must be a number.')
+        }
+      }
+    })
+
+    return total
+  }, [selectedMonth, selectedYear])
+
+  const totalBalance = useMemo(() => {
+    return totalGains - totalExpenses
+  }, [totalExpenses, totalGains])
+
+  const walletMessage = useMemo(() => {
+    if (totalBalance < 0) {
+      return {
+        title: 'Que triste!',
+        description: 'Neste mês você gastou mais do que deveria!',
+        footerText:
+          'Verifique seus gastos e tente cortar algumas despesas desnecessárias.',
+        icon: sadImg,
+      }
+    } else if (totalBalance === 0) {
+      return {
+        title: 'Ufaa!',
+        description: 'Neste mês você quase excedeu o que tinha!',
+        footerText:
+          'Tenha cuidado com despesas desnecessárias, e invista o que sobrar!',
+        icon: grinningImg,
+      }
+    } else {
+      return {
+        title: 'Muito bem!',
+        description: 'Sua carteira está positiva!',
+        footerText: 'Continue assim. Considere investir seu saldo.',
+        icon: happyImg,
+      }
+    }
+  }, [totalBalance])
 
   const handleSelectedMonth = (month: string) => {
     try {
@@ -98,7 +168,7 @@ export const DashboardPage: React.FC = () => {
         <DashboardWalletBoxComponent
           title='Saldo'
           cardColor='#4e41f0'
-          amount={650.0}
+          amount={totalBalance}
           footerLaber='Atualizado com base nas entradas e saídas.'
           icon='dollarSign'
         />
@@ -106,7 +176,7 @@ export const DashboardPage: React.FC = () => {
         <DashboardWalletBoxComponent
           title='Entradas'
           cardColor='#f7931b'
-          amount={2150.0}
+          amount={totalGains}
           footerLaber='Atualizado com base nas entradas e saídas.'
           icon='arrowUp'
         />
@@ -114,15 +184,15 @@ export const DashboardPage: React.FC = () => {
         <DashboardWalletBoxComponent
           title='Saídas'
           cardColor='#e44c4e'
-          amount={1500.0}
+          amount={totalExpenses}
           footerLaber='Atualizado com base nas entradas e saídas.'
           icon='arrowDown'
         />
         <DashboardMessageBoxComponent
-          title='Muito bem!'
-          description='Sua carteira está positiva!'
-          footerText='Continue assim. Considere investir seu saldo.'
-          icon={happyImg}
+          title={walletMessage.title}
+          description={walletMessage.description}
+          footerText={walletMessage.footerText}
+          icon={walletMessage.icon}
         />
       </DashboardContent>
     </DashboardContainer>

@@ -9,7 +9,7 @@ import { ContentHeaderComponent } from '../../components/content-header/content-
 import { SelectIpuntComponent } from '../../components/select-input/select-ipunt.component'
 import { DashboardWalletBoxComponent } from '../../components/dashboard-wallet-box/dashboard-wallet-box.component'
 import { DashboardMessageBoxComponent } from '../../components/dashboard-message-box/dashboard-message-box.component'
-import { PieChartComponent } from '../../components/piechart/piechart.component'
+import { PieChartComponent } from '../../components/piechart-box/piechart.component'
 
 // Utils
 import { Months } from '../../utils/months.utils'

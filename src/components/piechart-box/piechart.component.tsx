@@ -28,7 +28,7 @@ export const PieChartComponent: React.FC<IPieChartComponentProps> = ({
       <SubtextContainer>
         {data.map((indicator) => (
           <Subtexts key={indicator.name} color={indicator.color}>
-            <div>{indicator.percent}</div>
+            <div>{indicator.percent}%</div>
             <span>{indicator.name}</span>
           </Subtexts>
         ))}

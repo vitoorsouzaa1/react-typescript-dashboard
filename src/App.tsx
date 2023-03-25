@@ -20,6 +20,7 @@ export const App: React.FC = () => {
         <GlobalStyles />
         <LayoutComponent>
           <Routes>
+            <Route path='/' element={<DashboardPage />} />
             <Route path='/dashboard' element={<DashboardPage />} />
             <Route path='/list/:type' element={<ListPage />} />
           </Routes>

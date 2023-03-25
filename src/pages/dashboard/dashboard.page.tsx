@@ -8,9 +8,13 @@ import { gains } from '../../repositories/gains'
 import { ContentHeaderComponent } from '../../components/content-header/content-header.component'
 import { SelectIpuntComponent } from '../../components/select-input/select-ipunt.component'
 import { DashboardWalletBoxComponent } from '../../components/dashboard-wallet-box/dashboard-wallet-box.component'
+import { DashboardMessageBoxComponent } from '../../components/dashboard-message-box/dashboard-message-box.component'
 
 // Utils
 import { Months } from '../../utils/months.utils'
+
+// Image
+import happyImg from '../../assets/happy.svg'
 
 // Styles
 import { DashboardContainer, DashboardContent } from './dashboard.styles'
@@ -113,6 +117,12 @@ export const DashboardPage: React.FC = () => {
           amount={1500.0}
           footerLaber='Atualizado com base nas entradas e saídas.'
           icon='arrowDown'
+        />
+        <DashboardMessageBoxComponent
+          title='Muito bem!'
+          description='Sua carteira está positiva!'
+          footerText='Continue assim. Considere investir seu saldo.'
+          icon={happyImg}
         />
       </DashboardContent>
     </DashboardContainer>

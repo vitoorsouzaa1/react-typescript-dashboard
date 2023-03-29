@@ -1,8 +1,8 @@
 import React from 'react'
-import { ResponsiveContainer, BarChart, Bar, Cell } from 'recharts'
+import { ResponsiveContainer, BarChart, Bar, Cell, Tooltip } from 'recharts'
 
 // Utils
-// import { Formatter } from '../../utils/formatter.utils'
+import { Formatter } from '../../utils/formatter.utils'
 
 // Styles
 import {
@@ -44,7 +44,7 @@ export const RelationBarchartBoxComponent: React.FC<
       <BarChartContainer>
         <ResponsiveContainer>
           <BarChart data={data}>
-            <Bar dataKey='amount'>
+            <Bar dataKey='amount' name='Valor'>
               {data.map((indicator) => (
                 <Cell
                   key={indicator.name}
@@ -53,7 +53,10 @@ export const RelationBarchartBoxComponent: React.FC<
                 />
               ))}
             </Bar>
-            {/* <Tooltip formatter={(value) => Formatter(Number(value))} /> */}
+            <Tooltip
+              formatter={(value) => Formatter(Number(value))}
+              cursor={{ fill: 'none' }}
+            />
           </BarChart>
         </ResponsiveContainer>
       </BarChartContainer>

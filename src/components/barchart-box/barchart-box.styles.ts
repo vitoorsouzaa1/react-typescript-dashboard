@@ -4,7 +4,7 @@ interface ISubtextProps {
   color: string
 }
 
-export const RelationBarchartBoxContainer = styled.div`
+export const BarchartBoxContainer = styled.div`
   display: flex;
   width: 48%;
   min-height: 260px;

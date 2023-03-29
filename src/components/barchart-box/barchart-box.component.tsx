@@ -6,14 +6,14 @@ import { Formatter } from '../../utils/formatter.utils'
 
 // Styles
 import {
-  RelationBarchartBoxContainer,
+  BarchartBoxContainer,
   TextInfoContainer,
   BarChartContainer,
   SubtextContainer,
   Subtexts,
-} from './relation-barchart-box.styles'
+} from './barchart-box.styles'
 
-interface IRelationBarchartBoxComponentProps {
+interface IBarchartBoxComponentProps {
   title: string
   data: {
     name: string
@@ -23,11 +23,12 @@ interface IRelationBarchartBoxComponentProps {
   }[]
 }
 
-export const RelationBarchartBoxComponent: React.FC<
-  IRelationBarchartBoxComponentProps
-> = ({ data, title }) => {
+export const BarchartBoxComponent: React.FC<IBarchartBoxComponentProps> = ({
+  data,
+  title,
+}) => {
   return (
-    <RelationBarchartBoxContainer>
+    <BarchartBoxContainer>
       <TextInfoContainer>
         <h2>{title}</h2>
 
@@ -60,6 +61,6 @@ export const RelationBarchartBoxComponent: React.FC<
           </BarChart>
         </ResponsiveContainer>
       </BarChartContainer>
-    </RelationBarchartBoxContainer>
+    </BarchartBoxContainer>
   )
 }

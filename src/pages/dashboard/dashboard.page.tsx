@@ -11,7 +11,7 @@ import { DashboardWalletBoxComponent } from '../../components/dashboard-wallet-b
 import { DashboardMessageBoxComponent } from '../../components/dashboard-message-box/dashboard-message-box.component'
 import { PieChartComponent } from '../../components/piechart-box/piechart.component'
 import { HistoryBoxComponent } from '../../components/history-box/history-box.component'
-import { RelationBarchartBoxComponent } from '../../components/relation-barchart-box/relation-barchart-box.component'
+import { BarchartBoxComponent } from '../../components/barchart-box/barchart-box.component'
 
 // Utils
 import { Months } from '../../utils/months.utils'
@@ -387,15 +387,9 @@ export const DashboardPage: React.FC = () => {
           lineColorOutputAmount='#e44c4e'
         />
 
-        <RelationBarchartBoxComponent
-          title='Saídas'
-          data={expensesGraphRelation}
-        />
+        <BarchartBoxComponent title='Saídas' data={expensesGraphRelation} />
 
-        <RelationBarchartBoxComponent
-          title='Entradas'
-          data={gainsGraphRelation}
-        />
+        <BarchartBoxComponent title='Entradas' data={gainsGraphRelation} />
       </DashboardContent>
     </DashboardContainer>
   )

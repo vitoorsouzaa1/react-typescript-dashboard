@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useCallback } from 'react'
 
 // Repositories
 import { expenses } from '../../repositories/expenses'
@@ -315,23 +315,23 @@ export const DashboardPage: React.FC = () => {
     ]
   }, [selectedMonth, selectedYear])
 
-  const handleSelectedMonth = (month: string) => {
+  const handleSelectedMonth = useCallback((month: string) => {
     try {
       const parseMonth = Number(month)
       setSelectedMonth(parseMonth)
     } catch (err) {
       throw new Error('Invlid month value.')
     }
-  }
+  }, [])
 
-  const handleSelectedYear = (year: string) => {
+  const handleSelectedYear = useCallback((year: string) => {
     try {
       const parseYear = Number(year)
       setSelectedYear(parseYear)
     } catch (err) {
       throw new Error('Invlid year value.')
     }
-  }
+  }, [])
 
   return (
     <DashboardContainer>

@@ -11,6 +11,7 @@ import { DashboardWalletBoxComponent } from '../../components/dashboard-wallet-b
 import { DashboardMessageBoxComponent } from '../../components/dashboard-message-box/dashboard-message-box.component'
 import { PieChartComponent } from '../../components/piechart-box/piechart.component'
 import { HistoryBoxComponent } from '../../components/history-box/history-box.component'
+import { RelationBarchartBoxComponent } from '../../components/relation-barchart-box/relation-barchart-box.component'
 
 // Utils
 import { Months } from '../../utils/months.utils'
@@ -211,6 +212,88 @@ export const DashboardPage: React.FC = () => {
     })
   }, [selectedYear])
 
+  const expensesGraphRelation = useMemo(() => {
+    let recurrentAmount = 0
+    let eventualAmount = 0
+
+    expenses
+      .filter((expense) => {
+        const date = new Date(expense.date)
+        const month = date.getMonth() + 1
+        const year = date.getFullYear()
+
+        return month === selectedMonth && year === selectedYear
+      })
+      .forEach((expense) => {
+        if (expense.frequency === 'recorrente') {
+          return (recurrentAmount += Number(expense.amount))
+        }
+
+        if (expense.frequency === 'eventual') {
+          return (eventualAmount += Number(expense.amount))
+        }
+      })
+
+    const total = recurrentAmount + eventualAmount
+
+    return [
+      {
+        name: 'Recorrentes',
+        amount: recurrentAmount,
+        percent: Number(((recurrentAmount / total) * 100).toFixed(1)),
+        color: '#f7931b',
+      },
+
+      {
+        name: 'Eventuais',
+        amount: eventualAmount,
+        percent: Number(((eventualAmount / total) * 100).toFixed(1)),
+        color: '#e44c4e',
+      },
+    ]
+  }, [selectedMonth, selectedYear])
+
+  const gainsGraphRelation = useMemo(() => {
+    let recurrentAmount = 0
+    let eventualAmount = 0
+
+    gains
+      .filter((gain) => {
+        const date = new Date(gain.date)
+        const month = date.getMonth() + 1
+        const year = date.getFullYear()
+
+        return month === selectedMonth && year === selectedYear
+      })
+      .forEach((gain) => {
+        if (gain.frequency === 'recorrente') {
+          return (recurrentAmount += Number(gain.amount))
+        }
+
+        if (gain.frequency === 'eventual') {
+          return (eventualAmount += Number(gain.amount))
+        }
+      })
+
+    const total = recurrentAmount + eventualAmount
+
+    return [
+      {
+        name: 'Recorrentes',
+        amount: recurrentAmount,
+        percent: Number(((recurrentAmount / total) * 100).toFixed(1)),
+        color: '#f7931b',
+      },
+
+      {
+        name: 'Eventuais',
+        amount: eventualAmount,
+        percent: Number(((eventualAmount / total) * 100).toFixed(1)),
+        color: '#e44c4e',
+      },
+    ]
+  }, [selectedMonth, selectedYear])
+
   const handleSelectedMonth = (month: string) => {
     try {
       const parseMonth = Number(month)
@@ -280,7 +363,17 @@ export const DashboardPage: React.FC = () => {
         <HistoryBoxComponent
           data={historyBoxData}
           lineColorEntryAmount='#f7931b'
-          lineColorOutputAmount='#f44c4e'
+          lineColorOutputAmount='#e44c4e'
+        />
+
+        <RelationBarchartBoxComponent
+          title='Saídas'
+          data={expensesGraphRelation}
+        />
+
+        <RelationBarchartBoxComponent
+          title='Entradas'
+          data={gainsGraphRelation}
         />
       </DashboardContent>
     </DashboardContainer>

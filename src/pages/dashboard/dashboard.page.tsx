@@ -107,25 +107,28 @@ export const DashboardPage: React.FC = () => {
     return totalGains - totalExpenses
   }, [totalExpenses, totalGains])
 
-  const relation = useMemo(() => {
+  const pieChartRelation = useMemo(() => {
     const total = totalGains + totalExpenses
 
     const percentOfGains = (totalGains / total) * 100
 
     const percentOfExpenses = (totalExpenses / total) * 100
 
+    const gainsPercent = Number(percentOfGains.toFixed(1))
+    const expensesPercent = Number(percentOfExpenses.toFixed(1))
+
     const relationData = [
       {
         name: 'Entradas',
         value: totalGains,
-        percent: Number(percentOfGains.toFixed(1)),
-        color: '#e44c4e',
+        percent: gainsPercent ? gainsPercent : 0,
+        color: '#f7931b',
       },
       {
         name: 'Saídas',
         value: totalExpenses,
-        percent: Number(percentOfExpenses.toFixed(1)),
-        color: '#f7931b',
+        percent: expensesPercent ? expensesPercent : 0,
+        color: '#e44c4e',
       },
     ]
 
@@ -236,18 +239,23 @@ export const DashboardPage: React.FC = () => {
 
     const total = recurrentAmount + eventualAmount
 
+    const recurrentPercent = Number(
+      ((recurrentAmount / total) * 100).toFixed(1)
+    )
+    const eventualPercent = Number(((eventualAmount / total) * 100).toFixed(1))
+
     return [
       {
         name: 'Recorrentes',
         amount: recurrentAmount,
-        percent: Number(((recurrentAmount / total) * 100).toFixed(1)),
+        percent: recurrentPercent ? recurrentPercent : 0,
         color: '#f7931b',
       },
 
       {
         name: 'Eventuais',
         amount: eventualAmount,
-        percent: Number(((eventualAmount / total) * 100).toFixed(1)),
+        percent: eventualPercent ? eventualAmount : 0,
         color: '#e44c4e',
       },
     ]
@@ -277,18 +285,23 @@ export const DashboardPage: React.FC = () => {
 
     const total = recurrentAmount + eventualAmount
 
+    const recurrentPercent = Number(
+      ((recurrentAmount / total) * 100).toFixed(1)
+    )
+    const eventualPercent = Number(((eventualAmount / total) * 100).toFixed(1))
+
     return [
       {
         name: 'Recorrentes',
         amount: recurrentAmount,
-        percent: Number(((recurrentAmount / total) * 100).toFixed(1)),
+        percent: recurrentPercent ? recurrentPercent : 0,
         color: '#f7931b',
       },
 
       {
         name: 'Eventuais',
         amount: eventualAmount,
-        percent: Number(((eventualAmount / total) * 100).toFixed(1)),
+        percent: eventualPercent ? eventualPercent : 0,
         color: '#e44c4e',
       },
     ]
@@ -358,7 +371,7 @@ export const DashboardPage: React.FC = () => {
           icon={walletMessage.icon}
         />
 
-        <PieChartComponent data={relation} />
+        <PieChartComponent data={pieChartRelation} />
 
         <HistoryBoxComponent
           data={historyBoxData}

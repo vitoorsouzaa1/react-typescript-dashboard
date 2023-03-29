@@ -29,13 +29,13 @@ interface ITheme {
   }
 }
 
-export const useThemeContext = createContext<IThemeContext>({} as IThemeContext)
+export const ThemeContext = createContext<IThemeContext>({} as IThemeContext)
 
 export const ThemeProvider: React.FC<IChildren> = ({ children }) => {
   const [theme, setTheme] = useState<ITheme>(darkTheme)
 
   const toggleTheme = () => {
-    if (theme.title === 'darkTheme') {
+    if (theme.title === 'dark') {
       setTheme(lightTheme)
     } else {
       setTheme(darkTheme)
@@ -43,14 +43,14 @@ export const ThemeProvider: React.FC<IChildren> = ({ children }) => {
   }
 
   return (
-    <useThemeContext.Provider value={{ toggleTheme, theme }}>
+    <ThemeContext.Provider value={{ toggleTheme, theme }}>
       {children}
-    </useThemeContext.Provider>
+    </ThemeContext.Provider>
   )
 }
 
 export const useTheme = (): IThemeContext => {
-  const context = useContext(useThemeContext)
+  const context = useContext(ThemeContext)
 
   return context
 }

@@ -8,6 +8,9 @@ import {
   Tooltip,
 } from 'recharts'
 
+// Utils
+import { Formatter } from '../../utils/formatter.utils'
+
 // Styles
 import {
   HistoryBoxContainer,
@@ -53,7 +56,7 @@ export const HistoryBoxComponent: React.FC<IHistoryBoxComponentProps> = ({
       >
         <CartesianGrid strokeDasharray='3  3' stroke='#ccc' />
         <XAxis dataKey='month' stroke='#cecece' />
-        <Tooltip />
+        <Tooltip formatter={(value) => Formatter(Number(value))} />
 
         <Line
           type={'monotone'}

@@ -1,5 +1,9 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 
+// Themes
+import { useTheme } from '../../hooks/useTheme'
+
+// Utils
 import emojis from '../../utils/emojis'
 
 // Components
@@ -14,6 +18,17 @@ import {
 } from './header.styles'
 
 export const HeaderComponent: React.FC = () => {
+  const { toggleTheme, theme } = useTheme()
+
+  const [darkTheme, setDarkTheme] = useState(() =>
+    theme.title === 'dark' ? true : false
+  )
+
+  const handleThemeChanger = () => {
+    setDarkTheme(!darkTheme)
+    toggleTheme()
+  }
+
   const emoji = useMemo(() => {
     const index = Math.floor(Math.random() * emojis.length)
 
@@ -22,7 +37,12 @@ export const HeaderComponent: React.FC = () => {
 
   return (
     <HeaderContainer>
-      <TogglerComponent />
+      <TogglerComponent
+        labelLeft='Light'
+        labelRight='Dark'
+        checked={darkTheme}
+        onChange={handleThemeChanger}
+      />
 
       <ProfileContainer>
         <ProfileTitle>Olá, {emoji}</ProfileTitle>

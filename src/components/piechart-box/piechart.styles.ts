@@ -14,7 +14,7 @@ export const PieChartContainer = styled.div`
   display: flex;
 `
 
-export const SideContainer = styled.aside`
+export const SideTextContainer = styled.aside`
   padding: 30px 20px;
 
   > h2 {

@@ -4,7 +4,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts'
 // Styles
 import {
   PieChartContainer,
-  SideContainer,
+  SideTextContainer,
   Subtexts,
   SubtextContainer,
   GraphContainer,
@@ -23,7 +23,7 @@ export const PieChartComponent: React.FC<IPieChartComponentProps> = ({
   data,
 }) => (
   <PieChartContainer>
-    <SideContainer>
+    <SideTextContainer>
       <h2>Relação</h2>
       <SubtextContainer>
         {data.map((indicator) => (
@@ -33,7 +33,7 @@ export const PieChartComponent: React.FC<IPieChartComponentProps> = ({
           </Subtexts>
         ))}
       </SubtextContainer>
-    </SideContainer>
+    </SideTextContainer>
 
     <GraphContainer>
       <ResponsiveContainer>

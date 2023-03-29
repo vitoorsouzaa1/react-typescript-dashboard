@@ -2,6 +2,9 @@ import React from 'react'
 import { ThemeProvider } from 'styled-components'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
+// Custom Hooks
+import { useTheme } from './hooks/useTheme'
+
 // Components
 import { LayoutComponent } from './components/layout/layout.component'
 
@@ -11,12 +14,13 @@ import { DashboardPage } from './pages/dashboard/dashboard.page'
 
 // Styles
 import GlobalStyles from './styles/GlobalStyles'
-import dark from './styles/themes/dark.theme'
 
 export const App: React.FC = () => {
+  const { theme } = useTheme()
+
   return (
     <BrowserRouter>
-      <ThemeProvider theme={dark}>
+      <ThemeProvider theme={theme}>
         <GlobalStyles />
         <LayoutComponent>
           <Routes>

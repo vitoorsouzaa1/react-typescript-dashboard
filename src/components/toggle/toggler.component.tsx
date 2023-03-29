@@ -3,17 +3,29 @@ import React from 'react'
 // Styles
 import { ToggleContainer, ToggleLabel, ToggleSelector } from './toggler.styles'
 
-export const TogglerComponent: React.FC = () => {
+interface ITogglerComponentProps {
+  labelLeft: string
+  labelRight: string
+  checked: boolean
+  onChange(): void
+}
+
+export const TogglerComponent: React.FC<ITogglerComponentProps> = ({
+  labelLeft,
+  labelRight,
+  checked,
+  onChange,
+}) => {
   return (
     <ToggleContainer>
-      <ToggleLabel>Light</ToggleLabel>
+      <ToggleLabel>{labelLeft}</ToggleLabel>
       <ToggleSelector
-        checked
+        checked={checked}
         uncheckedIcon={false}
         checkedIcon={false}
-        onChange={() => console.log('mudou')}
+        onChange={onChange}
       />
-      <ToggleLabel>Dark</ToggleLabel>
+      <ToggleLabel>{labelRight}</ToggleLabel>
     </ToggleContainer>
   )
 }

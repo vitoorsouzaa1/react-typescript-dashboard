@@ -110,9 +110,9 @@ export const DashboardPage: React.FC = () => {
   const pieChartRelation = useMemo(() => {
     const total = totalGains + totalExpenses
 
-    const percentOfGains = (totalGains / total) * 100
+    const percentOfGains = Number(((totalGains / total) * 100).toFixed(1))
 
-    const percentOfExpenses = (totalExpenses / total) * 100
+    const percentOfExpenses = Number(((totalExpenses / total) * 100).toFixed(1))
 
     const gainsPercent = Number(percentOfGains.toFixed(1))
     const expensesPercent = Number(percentOfExpenses.toFixed(1))
@@ -144,6 +144,14 @@ export const DashboardPage: React.FC = () => {
           'Verifique seus gastos e tente cortar algumas despesas desnecessárias.',
         icon: sadImg,
       }
+    } else if (totalGains === 0 && totalExpenses === 0) {
+      return {
+        title: 'Opa!',
+        description: 'Não há registros neste mês!',
+        footerText:
+          'Os dados só estarão à mostra quando houver entradas ou saídas!',
+        icon: sadImg,
+      }
     } else if (totalBalance === 0) {
       return {
         title: 'Ufaa!',
@@ -160,7 +168,7 @@ export const DashboardPage: React.FC = () => {
         icon: happyImg,
       }
     }
-  }, [totalBalance])
+  }, [totalBalance, totalExpenses, totalGains])
 
   const historyBoxData = useMemo(() => {
     return Months.map((_, month) => {

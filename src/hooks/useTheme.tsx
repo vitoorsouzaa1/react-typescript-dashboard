@@ -2,14 +2,8 @@ import React, { createContext, useState, useContext } from 'react'
 
 import { IChildren } from '../utils/children.utils'
 
-// Themes
 import darkTheme from '../styles/themes/dark.theme'
 import lightTheme from '../styles/themes/light.theme'
-
-interface IThemeContext {
-  toggleTheme(): void
-  theme: ITheme
-}
 
 interface ITheme {
   title: string
@@ -29,27 +23,29 @@ interface ITheme {
   }
 }
 
-export const ThemeContext = createContext<IThemeContext>({} as IThemeContext)
+interface IThemeContext {
+  toggleTheme: () => void
+  theme: ITheme
+}
 
-export const ThemeProvider: React.FC<IChildren> = ({ children }) => {
+export const ThemeContext = createContext<IThemeContext>({
+  toggleTheme: () => {},
+  theme: darkTheme,
+})
+
+export const ThemeProvider: React.FunctionComponent<IChildren> = ({
+  children,
+}) => {
   const [theme, setTheme] = useState<ITheme>(() => {
     const savedTheme = localStorage.getItem('@financeboard:theme')
 
-    if (savedTheme) {
-      return JSON.parse(savedTheme)
-    } else {
-      return darkTheme
-    }
+    return savedTheme ? JSON.parse(savedTheme) : darkTheme
   })
 
   const toggleTheme = () => {
-    if (theme.title === 'dark') {
-      setTheme(lightTheme)
-      localStorage.setItem('@financeboard:theme', JSON.stringify(lightTheme))
-    } else {
-      setTheme(darkTheme)
-      localStorage.setItem('@financeboard:theme', JSON.stringify(darkTheme))
-    }
+    setTheme((prevTheme) =>
+      prevTheme.title === 'dark' ? lightTheme : darkTheme
+    )
   }
 
   return (
@@ -59,8 +55,4 @@ export const ThemeProvider: React.FC<IChildren> = ({ children }) => {
   )
 }
 
-export const useTheme = (): IThemeContext => {
-  const context = useContext(ThemeContext)
-
-  return context
-}
+export const useTheme = (): IThemeContext => useContext(ThemeContext)

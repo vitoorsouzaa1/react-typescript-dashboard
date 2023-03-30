@@ -8,6 +8,7 @@ export const LayoutContainer = styled.div`
     'SB HD'
     'SB MC';
   height: 100vh;
+  min-width: 315px;
 
   @media (max-width: 600px) {
     grid-template-columns: 100%;

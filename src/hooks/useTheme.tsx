@@ -1,7 +1,9 @@
 import React, { createContext, useState, useContext } from 'react'
 
+// Utils
 import { IChildren } from '../utils/children.utils'
 
+// Themes
 import darkTheme from '../styles/themes/dark.theme'
 import lightTheme from '../styles/themes/light.theme'
 

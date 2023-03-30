@@ -1,4 +1,6 @@
 import React, { createContext, useState, useContext } from 'react'
+
+// Utils
 import { IChildren } from '../utils/children.utils'
 
 interface IAuthContext {

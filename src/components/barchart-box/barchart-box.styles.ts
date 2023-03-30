@@ -12,6 +12,13 @@ export const BarchartBoxContainer = styled.div`
   background-color: ${(props) => props.theme.colors.tertiary};
   color: ${(props) => props.theme.colors.white};
   border-radius: 7px;
+
+  @media (max-width: 1200px) {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+  }
 `
 
 export const TextInfoContainer = styled.aside`
@@ -41,6 +48,11 @@ export const SubtextContainer = styled.ul`
   ::-webkit-scrollbar-track {
     background-color: ${(props) => props.theme.colors.tertiary};
   }
+
+  @media (max-width: 1200px) {
+    display: flex;
+    height: auto;
+  }
 `
 
 export const Subtexts = styled.li<ISubtextProps>`
@@ -61,6 +73,16 @@ export const Subtexts = styled.li<ISubtextProps>`
 
   > span {
     margin-left: 5px;
+  }
+
+  @media (max-width: 1200px) {
+    > div {
+      width: 30px;
+      height: 30px;
+
+      font-size: 10px;
+      line-height: 30px;
+    }
   }
 `
 

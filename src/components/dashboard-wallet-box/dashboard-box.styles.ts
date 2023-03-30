@@ -1,8 +1,22 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 interface IDashboardBoxContainerProps {
   color: string
 }
+
+const animate = keyframes`
+    0%{
+        transform: translateX(100px);
+        opacity: 0;
+    }
+    50%{     
+        opacity: .3;
+    }
+    100%{
+        transform: translateX(0px);
+        opacity: 1;
+    }
+`
 
 export const DashboardBoxContainer = styled.div<IDashboardBoxContainerProps>`
   background-color: ${(props) => props.color};
@@ -14,6 +28,8 @@ export const DashboardBoxContainer = styled.div<IDashboardBoxContainerProps>`
   padding: 10px 20px;
   position: relative;
   overflow: hidden;
+
+  animation: ${animate} 0.5s;
 
   > img {
     position: absolute;

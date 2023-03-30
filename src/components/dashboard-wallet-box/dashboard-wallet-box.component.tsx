@@ -28,16 +28,11 @@ export const DashboardWalletBoxComponent: React.FC<
 
   return (
     <DashboardBoxContainer color={cardColor}>
-      <h1>{title}</h1>
-      <h2>
-        <CountUp
-          end={amount}
-          prefix={'R$ '}
-          separator='.'
-          decimal=','
-          decimals={2}
-        />
-      </h2>
+      <span>{title}</span>
+      <h1>
+        <strong>R$ </strong>
+        <CountUp end={amount} separator='.' decimal=',' decimals={2} />
+      </h1>
       <small>{footerLaber}</small>
       <img src={selectedIcon} alt={title} />
     </DashboardBoxContainer>

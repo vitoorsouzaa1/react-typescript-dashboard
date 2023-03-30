@@ -28,7 +28,7 @@ export const SidebarComponent: React.FC = () => {
       </SidebarHeader>
 
       <SidebarMenu>
-        <MenuItemLink href='/dashboard'>
+        <MenuItemLink href='/'>
           <MdDashboard />
           Dashboard
         </MenuItemLink>

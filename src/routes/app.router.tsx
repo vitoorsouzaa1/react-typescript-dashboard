@@ -11,7 +11,7 @@ import { ListPage } from '../pages/list/list.page'
 export const AppRouter: React.FC = () => (
   <LayoutComponent>
     <Routes>
-      <Route path='/dashboard' element={<DashboardPage />} />
+      <Route path='/' element={<DashboardPage />} />
       <Route path='/list/:type' element={<ListPage />} />
     </Routes>
   </LayoutComponent>

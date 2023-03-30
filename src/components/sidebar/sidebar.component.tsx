@@ -9,6 +9,9 @@ import {
 // Images
 import logoImg from '../../assets/logo.svg'
 
+// Custom Hooks
+import { useAuth } from '../../hooks/useAuth'
+
 // Styles
 import {
   SidebarContainer,
@@ -17,9 +20,12 @@ import {
   MenuItemLink,
   LogImg,
   SidebarImgTitle,
+  MenuItemButton,
 } from './sidebar.styles'
 
 export const SidebarComponent: React.FC = () => {
+  const { signOut } = useAuth()
+
   return (
     <SidebarContainer>
       <SidebarHeader>
@@ -32,18 +38,21 @@ export const SidebarComponent: React.FC = () => {
           <MdDashboard />
           Dashboard
         </MenuItemLink>
+
         <MenuItemLink href='/list/entry-balance'>
           <MdArrowUpward />
           Entradas
         </MenuItemLink>
+
         <MenuItemLink href='/list/output-balance'>
           <MdArrowDownward />
           Saidas
         </MenuItemLink>
-        <MenuItemLink href='#'>
+
+        <MenuItemButton onClick={signOut}>
           <MdExitToApp />
           Sair
-        </MenuItemLink>
+        </MenuItemButton>
       </SidebarMenu>
     </SidebarContainer>
   )

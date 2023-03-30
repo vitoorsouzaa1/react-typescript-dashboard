@@ -1,5 +1,5 @@
 <div align="center" >
-  <img src="./docs/assets/logo.png" width="200">
+  <img src="./src/assets/logo.svg" width="200">
 </div>
 
 Dashboard desenvolvido em **ReactJs** com **TypeScript** inteiramente componentizado com **componentes puros**.

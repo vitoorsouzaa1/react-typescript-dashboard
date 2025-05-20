@@ -31,8 +31,6 @@ Este projeto é um dashboard construído utilizando as melhores práticas de des
   <img src="./src/assets/dashboardpreview.gif" alt="Exemplo do dashboard 1" width="600" style="margin: 1rem 0;">
 </div>
 
-> **Nota:** Substitua os exemplos acima pelos caminhos corretos das imagens disponíveis no projeto ou adicione novas imagens à pasta `src/assets` para ilustrar melhor o dashboard.
-
 ## 📂 Como rodar o projeto
 
 1. Clone o repositório:
